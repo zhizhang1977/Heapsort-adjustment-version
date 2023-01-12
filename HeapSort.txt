@@ -1,4 +1,6 @@
-堆排序的算法：
+堆排序的实现
+
+一、堆排序的算法
 
 ① 将待排序的序列构造成一个大顶堆（小顶堆）；
 
@@ -6,39 +8,43 @@
 
 ③ 将待排序序列调整为大顶堆（小顶堆），交换根节点与待排序序列的最后一个元素，循环进行至整个序列有序，最终得到一个递增（递减）序列。
 
-堆排序的实现：
-
-C语言
+二、堆排序的实现（C语言）
 
 void HeapAdjust(int* arr, int n)
 
 {
 
-    int loc = 0;
+       int loc = 0;
 
-    int tmp = 0;
+       int tmp = 0;
 
-    for(int i=n/2-1; i>=0; i--)    {
+       for(int i=n/2-1; i>=0; i--)
 
-        loc = 2 * i + 1;
+       {
 
-        if(loc+1 < n && arr[loc]<arr[loc+1]) {
+              loc = 2 * i + 1;
 
-            loc++;
+              if(loc+1 < n && arr[loc]<arr[loc+1])
 
-        }
+              {
 
-        if(arr[loc] > arr[i]) {
+                     loc++;
 
-            tmp = arr[loc];
+              }
 
-            arr[loc] = arr[i];
+              if(arr[loc] > arr[i])
 
-            arr[i] = tmp;
+              {
 
-        }
+                   tmp = arr[loc];
 
-    }
+                   arr[loc] = arr[i];
+
+                   arr[i] = tmp;
+
+              }
+
+     }
 
 }
 
@@ -46,20 +52,72 @@ void HeapSort(int* arr, int len)
 
 {
 
-    int tmp;
+       int tmp;
 
-    HeapAdjust(arr, len);
+       HeapAdjust(arr, len);
 
-    for(int i=len-1; i>0; i--) {
+       for(int i=len-1; i>0; i--)
 
-        tmp = arr[i];
+       {
 
-        arr[i] = arr[0];
+               tmp = arr[i];
 
-        arr[0] = tmp;
+               arr[i] = arr[0];
 
-        HeapAdjust(arr, i);
+               arr[0] = tmp;
 
-    }
+               HeapAdjust(arr, i);
+
+       }
+
+}
+
+三、堆排序的验证
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <time.h>
+
+int main()
+
+{
+
+       int n = 10;
+
+       int arr[10] = {};
+
+       srand((unsigned)time(NULL));
+
+       for(int i=0; i<n; i++)
+
+              arr[i] = rand() % 1000;
+
+       printf("Before sorting: ");
+
+       for(int i = 0; i < n; i++)
+
+       {
+
+              printf("%d ", arr[i]);
+
+       }
+
+       printf("\n");   
+
+       HeapSort(arr, n);
+
+       printf("After sorting: ");
+
+       for(int i = 0; i < n; i++)
+
+       {
+
+             printf("%d ", arr[i]);
+
+       }
+
+       return 0;
 
 }
