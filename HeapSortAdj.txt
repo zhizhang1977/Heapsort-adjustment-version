@@ -1,0 +1,86 @@
+Heapsort adjustment version
+
+Heapsort originated from Robert W．Floyd. Heapsort is a sort based on the heap.
+
+1. Definition of heap:
+The heap is a binary tree. A binary tree can be thought of as an inverted tree whose branches are always less than or equal to two and greater than or equal to zero. Specific knowledge about binary trees can be obtained from the following website: https://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E6%A0%91/1602879?fr=aladdin
+
+2. Nature of heap:
+(1) The value of a node in the heap is always not greater than or less than its parent node value;
+(2) The heap is always a complete binary tree.
+
+3. Storage of heap:
+The heap can be stored in chain or array. The array storage method is to map data from a heap to an array in the order of top to bottom and left to right. For specific data structure, see: https://blog.csdn.net/cativen/article/details/124810686
+
+4. Classification of heap:
+(1) Big top heap: a heap in which the value of a node is always not greater than the value of its parent node.
+(2) Small top heap: a heap in which the value of a node is always not less than the value of its parent node.
+
+5. The basic idea of heapsort adjustment version:
+Assuming that the length of the elements to be sorted is N, adjust the reciprocal sequence (N: 2) elements to the same kind of heap in order to obtain an ordered sequence.
+Note: A sequence is an object arranged in a column. The sequence (10:1) equals 10, 9, 8... 1.
+
+6. Implementation of heapsort adjustment version: (take ascending sort as an example)
+C language version:
+
+void HeapAdjust(int* arr, int n)  //Adjust an array of length n to a small top heap
+{
+       int loc = 0;  //Used to locate child nodes
+       int temp = 0;
+       int i = n / 2 -1;
+
+       if(n % 2 == 0) {   //Judge whether the last non-leaf node has only left children             
+              loc = n - 1;  //The variable loc points to the left child node of the last non-leaf node
+              if(arr[loc] < arr[i]) { //If the left child node is less than the value of the parent node, exchange the child node and the parent node
+                            temp = arr[loc];
+                            arr[loc] = arr[i];
+                            arr[i] = temp;
+               }  
+
+
+               
+              for(i = n / 2 - 2; i >= 0; i--) { //Adjust from the penultimate non-leaf node to the root node
+                     loc = 2 * i + 1;  //The variable loc points to the left child node
+                     if(arr[loc] > arr[loc+1]) {
+                            loc++;  //The variable loc is the position of the minimum child node
+                     }
+              
+                     if(arr[loc] < arr[i]) { //If the minimum child node is less than the value of the parent node, exchange the child node and the parent node
+                            temp = arr[loc];
+                            arr[loc] = arr[i];
+                            arr[i] = temp;
+                     }
+              }           
+       }
+       else{
+              for(i = n / 2 - 1; i >= 0; i--) { //Adjust from the last non-leaf node to the root node
+                     loc = 2 * i + 1;  //The variable loc points to the left child node
+              
+
+                     if(arr[loc] > arr[loc+1]) {
+                            loc++;  //The variable loc is the position of the minimum child node
+                     }
+
+                     if(arr[loc] < arr[i]) { //If the minimum child node is less than the value of the parent node, exchange the child node and the parent node
+                            temp = arr[loc];
+                            arr[loc] = arr[i];
+                            arr[i] = temp;
+                     }
+              }
+       
+       }
+}
+
+void HeapSort_Adj(int* arr, int len)  //Sort the array arr with length n in the adjusted ascending heapsort
+{
+       for(int i = len; i > 1; i--) {  //Adjust the reciprocal sequence (len: 2) elements into small top heap	
+               HeapAdjust(arr + len - i, i);
+       }
+}
+
+
+7. Test of heap sorting adjustment version: 
+The source program is HeapSortAdj_English.c, the executable program is HeapSortAdj_English.exe.
+
+I have learned and referred to many tutorials, books, online articles, materials and source codes for writing this article, I would like to express my deep gratitude. At the same time, I would like to thank the organizations and individuals who helped me, urged me and corrected me. Due to my limited level, mistakes and deficiencies are inevitable, please put forward comments and suggestions, thank you.
+
