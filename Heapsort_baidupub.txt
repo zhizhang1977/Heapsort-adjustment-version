@@ -1,5 +1,0 @@
-This is the spread of heap sorting in China. 
-
-The link address is attached: https://baike.baidu.com/item/%E5%A0%86%E6%8E%92%E5%BA%8F/2840151?fr=aladdin
-
-Due to time constraints, I only tested heap sorting in C language version.
